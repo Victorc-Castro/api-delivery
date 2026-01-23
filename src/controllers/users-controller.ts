@@ -1,6 +1,6 @@
-import { AppError } from '@/utils/AppError'
+import { AppError } from '@/utils/AppError' // importação do AppError para validações.
 import { Request, Response } from 'express'
-import { prisma } from '@/database/prisma'
+import { prisma } from '@/database/prisma' // importação do prisma para conexão com o banco de dados.
 import { hash } from "bcrypt"         // importação do bcrypt para criptografia.
 import { z } from "zod"               // importação do zod para validações.
 
@@ -32,7 +32,7 @@ class UsersController {
 
     const { password: _, ...userWithoutPassword } = user // desestruturação da senha para que ela não retorne na requisição.
 
-    return response.json(userWithoutPassword)
+    return response.status(201).json(userWithoutPassword)
   }
 }
 
