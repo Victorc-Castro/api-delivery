@@ -1,6 +1,8 @@
+import { AppError } from '@/utils/AppError'
 import { Request, Response } from 'express'
-import { hash } from "bcrypt"
-import { z } from "zod"
+import { prisma } from '@/database/prisma'
+import { hash } from "bcrypt"         // importação do bcrypt para criptografia.
+import { z } from "zod"               // importação do zod para validações.
 
 class UsersController {
   async create(request: Request, response: Response) {   // controller para retornar o conteúdo da requisição.
@@ -12,9 +14,25 @@ class UsersController {
 
     const { name, email, password } = bodySchema.parse(request.body)
 
-    const hashedPassword = await hash(password, 8)
+    const userWithSameEmail = await prisma.user.findFirst({ where: { email } })
 
-    return response.json({ message: "ok", hashedPassword })
+    if (userWithSameEmail) {
+      throw new AppError("User with same email already exists")     // validação de se o email cadastrado já existe.
+    }
+
+    const hashedPassword = await hash(password, 8)  // criptografia da senha.
+
+    const user = await prisma.user.create({        // metódo para criar um usuário.
+      data: {
+        name,
+        email,                                    
+        password: hashedPassword,
+      },
+    })
+
+    const { password: _, ...userWithoutPassword } = user // desestruturação da senha para que ela não retorne na requisição.
+
+    return response.json(userWithoutPassword)
   }
 }
 
