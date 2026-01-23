@@ -1,6 +1,8 @@
 import { AppError } from '@/utils/AppError'
 import { Request, Response } from 'express'
+import { authConfig } from "@/configs/auth"  // importação da configuração da autenticação.
 import { prisma } from '@/database/prisma'  // importação do prisma para conexão com o banco de dados.
+import { sign } from 'jsonwebtoken'  // 
 import { compare } from 'bcrypt'          // importação do bcrypt para comparação da senhas.
 import { z } from "zod"    // importação do zod para validações.
 
@@ -27,7 +29,14 @@ class SessionsController {
       throw new AppError("Invalid email or password", 401)     // erro lançado caso as senhas não sejam compatíveis.
     }
 
-    return response.json({ message: "ok" })
+    const { secret, expiresIn } = authConfig.jwt  // desestruturando as configurações de autenticação.
+
+    const token = sign({ role: user.role ?? "customer" }, secret, {    // criando o token.
+      subject: user.id,
+      expiresIn}
+    )
+
+    return response.json({ token })
   }
 }
 
