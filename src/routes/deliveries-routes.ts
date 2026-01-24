@@ -10,5 +10,6 @@ const deliveriesController = new DeliveriesController()
 
 deliveriesRoutes.use(ensureAuthenticated, verifyUserAuthorization(["sale"]))  // passando a autenticação para a rota.
 deliveriesRoutes.post("/", deliveriesController.create)
+deliveriesRoutes.get("/", deliveriesController.index) // rota para listar pedidos.
 
 export { deliveriesRoutes }

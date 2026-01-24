@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { prisma } from "@/database/prisma"  // importação do prisma para conexão com o banco de dados.
 import { z } from "zod"  // importação do zod para validação.
+import { email } from "zod/v4"
 
 class DeliveriesController {
   async create(request: Request, response: Response) {
@@ -19,6 +20,16 @@ class DeliveriesController {
     })
 
     return response.status(201).json()
+  }
+
+  async index(request: Request, response: Response) {     // método para listar os pedidos.
+    const deliveries = await prisma.delivery.findMany({
+      include: {                                        
+        user: { select: { name: true, email: true } } // selecionando o nome e email do usuário para retornar com a requisição.
+      }
+    })
+
+    return response.json(deliveries)
   }
 }
 
