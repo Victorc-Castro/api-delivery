@@ -1,8 +1,24 @@
 import { Request, Response } from "express"
+import { prisma } from "@/database/prisma"  // importação do prisma para conexão com o banco de dados.
+import { z } from "zod"  // importação do zod para validação.
 
 class DeliveriesController {
-  create(request: Request, response: Response) {
-    return response.json({ message: "ok" })
+  async create(request: Request, response: Response) {
+    const bodySchema = z.object({
+      user_id: z.string().uuid(),  // id do usuário que vai receber o pedido.
+      description: z.string(),
+    })
+
+    const { user_id, description } = bodySchema.parse(request.body)
+
+    await prisma.delivery.create({
+      data: {
+        userId: user_id,
+        description,
+      },
+    })
+
+    return response.status(201).json()
   }
 }
 
