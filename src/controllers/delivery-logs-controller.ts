@@ -3,8 +3,8 @@ import { AppError } from "@/utils/AppError"  // importação do erro para verifi
 import { prisma } from "@/database/prisma"        // importação do banco de dados.
 import { z } from "zod"                        // importação do zod para validações.
 
-class DeliveryLogsController {                             // método para adicionar informações sobre os envios.
-  async create(resquest: Request, response: Response) {
+class DeliveryLogsController {                             
+  async create(resquest: Request, response: Response) {  // método para adicionar informações sobre os envios.
     const bodySchema = z.object({  
       delivery_id: z.string().uuid(),                     // validação do que é necessário para o log.
       description: z.string()
@@ -32,6 +32,27 @@ class DeliveryLogsController {                             // método para adici
     })
 
     return response.status(201).json()
+  }
+
+  async show(request: Request, response: Response){  // método para exibir detalhes dos pedidos.
+    const paramsSchema = z.object({                     // validação do que vou receber (id da entrega).
+      delivery_id: z.string().uuid(),
+    })
+
+    const { delivery_id } = paramsSchema.parse(request.params)
+
+    const delivery = await prisma.delivery.findUnique({   // buscando no banco de dados através do id da entrega.
+      where: { id: delivery_id },
+    })
+
+    if (
+      request.user?.role === "costumer" &&               // verificando se o pedido pertence ao usuário. 
+      request.user.id !== delivery?.userId
+    ) { 
+      throw new AppError("the user can only view their deliveries", 401)
+    }
+
+    return response.json(delivery)
   }
 }
 

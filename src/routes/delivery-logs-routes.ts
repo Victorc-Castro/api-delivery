@@ -15,4 +15,11 @@ deliveryLogsRoutes.post(
   deliveryLogsController.create
 )
 
+deliveryLogsRoutes.get(
+  "/:delivery_id/show",
+  ensureAuthenticated,
+  verifyUserAuthorization(["sale", "costumer"]),    // rota para controller que exibe detalhes do pedido.
+  deliveryLogsController.show
+)
+
 export { deliveryLogsRoutes }
