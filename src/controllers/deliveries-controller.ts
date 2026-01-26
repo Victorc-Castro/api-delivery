@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
 import { prisma } from "@/database/prisma"  // importação do prisma para conexão com o banco de dados.
 import { z } from "zod"  // importação do zod para validação.
-import { email } from "zod/v4"
 
 class DeliveriesController {
   async create(request: Request, response: Response) {

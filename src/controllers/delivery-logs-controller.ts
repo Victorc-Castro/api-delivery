@@ -26,7 +26,7 @@ class DeliveryLogsController {
 
     await prisma.deliveryLog.create({
       data: {
-        deliveredId: delivery_id,                     // criando o método para o log.
+        deliveryId: delivery_id,                     // criando o método para o log.
         description
       }
     })
@@ -46,8 +46,7 @@ class DeliveryLogsController {
     })
 
     if (
-      request.user?.role === "costumer" &&               // verificando se o pedido pertence ao usuário. 
-      request.user.id !== delivery?.userId
+      request.user?.role === "costumer" && request.user.id !== delivery?.userId  // verificando se o pedido pertence ao usuário. 
     ) { 
       throw new AppError("the user can only view their deliveries", 401)
     }

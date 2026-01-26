@@ -53,9 +53,9 @@ model Delivery {
 model DeliveryLog {
   id String @id @default(uuid())
   description String
-  deliveredId String @map("delivered_id")
+  deliveryId String @map("delivery_id")
 
-  delivery Delivery @relation(fields: [deliveredId], references: [id])
+  delivery Delivery @relation(fields: [deliveryId], references: [id])
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")

@@ -33,7 +33,7 @@ CREATE TABLE "deliveries" (
 CREATE TABLE "delivery_logs" (
     "id" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "delivered_id" TEXT NOT NULL,
+    "delivery_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
 
@@ -44,4 +44,4 @@ CREATE TABLE "delivery_logs" (
 ALTER TABLE "deliveries" ADD CONSTRAINT "deliveries_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "delivery_logs" ADD CONSTRAINT "delivery_logs_delivered_id_fkey" FOREIGN KEY ("delivered_id") REFERENCES "deliveries"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "delivery_logs" ADD CONSTRAINT "delivery_logs_delivery_id_fkey" FOREIGN KEY ("delivery_id") REFERENCES "deliveries"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
