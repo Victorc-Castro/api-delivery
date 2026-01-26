@@ -20,6 +20,10 @@ class DeliveryLogsController {
       throw new AppError("delivery not found", 404)     // validação de se o pedido existe.
     }
 
+    if(delivery.status === "delivered") {
+      throw new AppError("this order has already been delivered")  // validação de pedido entregue.
+    }
+
     if(delivery.status === "processing"){
       throw new AppError("change status to shipped")   // validação de se o status ainda está como "procesing", pois o pedido precisa ser enviado para o log.
     }
@@ -43,6 +47,10 @@ class DeliveryLogsController {
 
     const delivery = await prisma.delivery.findUnique({   // buscando no banco de dados através do id da entrega.
       where: { id: delivery_id },
+      include: {
+        logs: true,
+        user: true
+      }
     })
 
     if (
