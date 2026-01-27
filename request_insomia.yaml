@@ -1,0 +1,315 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: api-delivery
+meta:
+  id: wrk_6c43e7498adf42758116f36afcdda9b3
+  created: 1769133208573
+  modified: 1769133234658
+  description: ""
+collection:
+  - name: Users
+    meta:
+      id: fld_f935df7751d64666b6ca3c523f5d05bb
+      created: 1769133248992
+      modified: 1769390934570
+      sortKey: -1769133248992
+      description: ""
+    children:
+      - url: "{{ _.BASE_URL }}/{{ _.RESOURCE }}"
+        name: Create
+        meta:
+          id: req_7c804b9b3bac4d1a870c2a18f1ea7d0e
+          created: 1769133458213
+          modified: 1769399672502
+          isPrivate: false
+          description: ""
+          sortKey: -1769133458213
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Denis Gomes",
+            	"email": "denis@email.com",
+            	"password": "123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    environment:
+      RESOURCE: users
+    environmentPropertyOrder:
+      "&":
+        - RESOURCE
+  - name: Sessions
+    meta:
+      id: fld_6bc77f015f0e4e24870230fe01e62636
+      created: 1769180940614
+      modified: 1769395169695
+      sortKey: -1769180940614
+      description: ""
+    children:
+      - url: "{{ _.BASE_URL }}/{{ _.RESOURCE }}"
+        name: Create
+        meta:
+          id: req_089339a9586c4f9aa6475082da867f66
+          created: 1769181017434
+          modified: 1769453579886
+          isPrivate: false
+          description: ""
+          sortKey: -1769181017434
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "victor@email.com",
+            	"password": "123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    environment:
+      RESOURCE: sessions
+    environmentPropertyOrder:
+      "&":
+        - RESOURCE
+  - name: Deliveries
+    meta:
+      id: fld_9f0b3bc3c0b847afa3e4f3580d727206
+      created: 1769215841102
+      modified: 1769273141112
+      sortKey: -1769215841102
+      description: ""
+    children:
+      - url: "{{ _.BASE_URL }}/{{ _.RESOURCE }}"
+        name: Create
+        meta:
+          id: req_91fd32e93e4f4e9f89b593a01a9a24be
+          created: 1769215849756
+          modified: 1769455041564
+          isPrivate: false
+          description: ""
+          sortKey: -1769215849756
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"user_id": "e1131066-ff31-4064-997d-921a26ad0f0c",
+            	"description": "Mouse Gamer"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_089339a9586c4f9aa6475082da867f66',
+            'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL }}/{{ _.RESOURCE }}"
+        name: Index
+        meta:
+          id: req_260fb6876805422ab77433cd3f681633
+          created: 1769273141903
+          modified: 1769273234796
+          isPrivate: false
+          description: ""
+          sortKey: -1769273141903
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_089339a9586c4f9aa6475082da867f66',
+            'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL }}/{{ _.RESOURCE
+          }}/80daea67-50a2-47d6-a2cf-c41c0f73f1d0/status"
+        name: Status Update
+        meta:
+          id: req_ae64b3e0efdf4d93954bd14919b4fd13
+          created: 1769384797318
+          modified: 1769455068140
+          isPrivate: false
+          description: ""
+          sortKey: -1769384797318
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"status": "shipped"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_089339a9586c4f9aa6475082da867f66',
+            'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    environment:
+      RESOURCE: deliveries
+    environmentPropertyOrder:
+      "&":
+        - RESOURCE
+  - name: Delivery Logs
+    meta:
+      id: fld_6d1f23fbf1be4705aecd2802684bbdbd
+      created: 1769386981167
+      modified: 1769387050174
+      sortKey: -1769386981167
+      description: ""
+    children:
+      - url: "{{ _.BASE_URL }}/{{ _.RESOURCE }}"
+        name: Create
+        meta:
+          id: req_5d3abc3e6b3349499d93d13437b4fbbd
+          created: 1769387007357
+          modified: 1769454429351
+          isPrivate: false
+          description: ""
+          sortKey: -1769387007357
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"delivery_id": "9f46a5b9-7285-447d-a9fe-53b39199b21c",
+            	"description": "Pedido em trânsito!"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_089339a9586c4f9aa6475082da867f66',
+            'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL }}/{{ _.RESOURCE
+          }}/80daea67-50a2-47d6-a2cf-c41c0f73f1d0/show"
+        name: Index
+        meta:
+          id: req_71b2335ab97848a69e490cf8b44e3ca1
+          created: 1769389528354
+          modified: 1769455147780
+          isPrivate: false
+          description: ""
+          sortKey: -1769389528354
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_089339a9586c4f9aa6475082da867f66',
+            'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    environment:
+      RESOURCE: delivery-logs
+    environmentPropertyOrder:
+      "&":
+        - RESOURCE
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_3f957e0eb4e477e2c4a0d8bb4a8f01b223d2e787
+    created: 1769133208576
+    modified: 1769133208576
+environments:
+  name: Base Environment
+  meta:
+    id: env_3f957e0eb4e477e2c4a0d8bb4a8f01b223d2e787
+    created: 1769133208574
+    modified: 1769133302323
+    isPrivate: false
+  data:
+    BASE_URL: http://localhost:3333
+  subEnvironments:
+    - name: dev
+      meta:
+        id: env_a09b27d9d7f346959b2b8705ba24be21
+        created: 1769133349261
+        modified: 1769133366080
+        isPrivate: false
+        sortKey: 1769133349262
+      data:
+        BASE_URL: http://localhost:3333
+      color: "#560c92"
