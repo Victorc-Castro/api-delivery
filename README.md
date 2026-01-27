@@ -42,18 +42,30 @@ Configuração do banco de dados com Docker Compose, facilitando a padronizaçã
 
 💻 Estrutura do Projeto
 API-DELIVERY
+
 ├── node_modules/            # Dependências (ignorado pelo Git) 
+
 ├── prisma/                  # Schema, migrations e client do Prisma
+
 ├── src/                     # Código fonte do backend
+
 ├── .env                     # Variáveis de ambiente (ignorado pelo Git)
+
 ├── .env-example             # Exemplo de variáveis de ambiente
+
 ├── .gitignore
 ├── docker-compose.yml       # Configuração do PostgreSQL com Docker
+
 ├── jest.config.js           # Configuração do Jest
+
 ├── package-lock.json
+
 ├── package.json
+
 ├── README.md
+
 ├── request_insomnia.yaml    # Coleção de requisições para teste da API
+
 └── tsconfig.json            # Configurações do TypeScript
 
 💾 Pré-requisitos
