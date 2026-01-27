@@ -2,7 +2,6 @@ import request from "supertest" // importação do "supertest" para fazer os tes
 import { prisma } from "@/database/prisma"  // importação do prisma para conexão com o banco de dados.
 
 import { app } from "@/app"  // importação do onde estão as rotas.
-import { email } from "zod/v4"
 
 describe("UsersController", () => {  // teste para criação de novos usuários.
   let user_id: string  // variável para pegar o id do usuário criado.  
