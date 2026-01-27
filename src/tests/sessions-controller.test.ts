@@ -1,9 +1,14 @@
 import request from "supertest"  // importação do supertest.
+import { prisma } from "@/database/prisma" // importação do prisma para usar o banco de dados.
 
 import { app } from "@/app"   // importação do onde estão as rotas.
 
 describe("SessionsController", () => {  // método para teste de sessão.
   let user_id: string 
+
+  afterAll(async () => {  
+    await prisma.user.delete({ where: { id: user_id } })  // método para deleter o usuário criado pelo teste após fazer o teste.
+  })
 
   it("should authenticate a and get acess token", async () => {      // usuário criado para teste de sessão.
     const userResponse = await request(app).post("/users").send({
