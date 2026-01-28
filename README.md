@@ -1,4 +1,4 @@
-📦 Delivery API
+## 📦 Delivery API
 
 Esta API foi desenvolvida para gerenciar o fluxo de entregas de pedidos, permitindo o controle de usuários com diferentes perfis (roles), pedidos, status de delivery e o histórico de movimentações de cada pedido.
 
@@ -18,7 +18,7 @@ delivered
 
 Além disso, a API registra as movimentações do pedido (ex: produto saiu para entrega), garantindo rastreabilidade completa do processo.
 
-👩‍💻 Aprendizados
+## 👩‍💻 Aprendizados
 
 Durante o desenvolvimento do Delivery API, foram aplicados diversos conceitos fundamentais para APIs modernas e escaláveis. Entre os principais aprendizados estão:
 
@@ -40,7 +40,7 @@ Criação de testes automatizados para validação das regras de negócio, aumen
 --> 6. Ambiente Containerizado com Docker
 Configuração do banco de dados com Docker Compose, facilitando a padronização do ambiente de desenvolvimento.
 
-💻 Estrutura do Projeto
+## 💻 Estrutura do Projeto
 API-DELIVERY
 
 ├── node_modules/            # Dependências (ignorado pelo Git) 
@@ -68,33 +68,42 @@ API-DELIVERY
 
 └── tsconfig.json            # Configurações do TypeScript
 
-💾 Pré-requisitos
+## 💾 Pré-requisitos
 
 --> Node.js
+
 --> npm ou yarn
+
 --> Docker e Docker Compose
+
 --> Insomnia ou Postman (para testar os endpoints)
 
-🚀 Como Rodar o Projeto
+## 🚀 Como Rodar o Projeto
 
 --> Clone o repositório
+
 --> Instale as dependências
+
 --> Suba o banco de dados com Docker
+
 --> Execute as migrations do Prisma
+
 --> Inicie o servidor em modo desenvolvimento
 
 A API estará disponível na porta configurada do projeto.
 
-🧪 Testes Automatizados
+## 🧪 Testes Automatizados
 
 O projeto utiliza Jest para testes automatizados.
 
 --> Executar testes em modo watch de acordo com os scripts configurados.
 
-🛠️ Testes da API com Insomnia
+## 🛠️ Testes da API com Insomnia
 
 --> Localize o arquivo request_insomnia.yaml
+
 --> Importe no Insomnia
+
 --> Todas as requisições estão configuradas para a URL local da API
 
 Isso permite testar facilmente os fluxos de:
@@ -109,17 +118,24 @@ status de delivery
 
 movimentações
 
-⚙️ Tecnologias Utilizadas
+## ⚙️ Tecnologias Utilizadas
 
 --> Node.js
+
 --> TypeScript
+
 --> PostgreSQL
+
 --> Prisma ORM
+
 --> Zod
+
 --> Docker & Docker Compose
+
 --> Jest
+
 --> Git & GitHub
 
-🔗 Documentação completa do projeto (Notion)
+## 🔗 Documentação completa do projeto (Notion)
 
 --> https://marked-plier-cb8.notion.site/API-de-entregas-de-encomendas-2e346e0e5f80809e9b45ffa61ee8bfae
