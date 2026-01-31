@@ -1,36 +1,36 @@
 import { Request, Response } from "express"
-import { AppError } from "@/utils/AppError"  // importação do erro para verificação.
-import { prisma } from "@/database/prisma"        // importação do banco de dados.
-import { z } from "zod"                        // importação do zod para validações.
+import { AppError } from "@/utils/AppError"  
+import { prisma } from "@/database/prisma"      
+import { z } from "zod"                       
 
 class DeliveryLogsController {                             
-  async create(resquest: Request, response: Response) {  // método para adicionar informações sobre os envios.
+  async create(request: Request, response: Response) {  
     const bodySchema = z.object({  
-      delivery_id: z.string().uuid(),                     // validação do que é necessário para o log.
+      delivery_id: z.string().uuid(),                    
       description: z.string()
     })
 
-    const { delivery_id, description } = bodySchema.parse(resquest.body)
+    const { delivery_id, description } = bodySchema.parse(request.body)
 
     const delivery = await prisma.delivery.findUnique({
-      where: { id: delivery_id }                         // buscando o id no banco de dados.
+      where: { id: delivery_id }                        
     })
 
     if(!delivery){
-      throw new AppError("delivery not found", 404)     // validação de se o pedido existe.
+      throw new AppError("delivery not found", 404)   
     }
 
     if(delivery.status === "delivered") {
-      throw new AppError("this order has already been delivered")  // validação de pedido entregue.
+      throw new AppError("this order has already been delivered") 
     }
 
     if(delivery.status === "processing"){
-      throw new AppError("change status to shipped")   // validação de se o status ainda está como "procesing", pois o pedido precisa ser enviado para o log.
+      throw new AppError("change status to shipped") 
     }
 
     await prisma.deliveryLog.create({
       data: {
-        deliveryId: delivery_id,                     // criando o método para o log.
+        deliveryId: delivery_id,                   
         description
       }
     })
@@ -38,14 +38,14 @@ class DeliveryLogsController {
     return response.status(201).json()
   }
 
-  async show(request: Request, response: Response){  // método para exibir detalhes dos pedidos.
-    const paramsSchema = z.object({                     // validação do que vou receber (id da entrega).
+  async show(request: Request, response: Response){  
+    const paramsSchema = z.object({                  
       delivery_id: z.string().uuid(),
     })
 
     const { delivery_id } = paramsSchema.parse(request.params)
 
-    const delivery = await prisma.delivery.findUnique({   // buscando no banco de dados através do id da entrega.
+    const delivery = await prisma.delivery.findUnique({ 
       where: { id: delivery_id },
       include: {
         logs: true,
@@ -54,7 +54,7 @@ class DeliveryLogsController {
     })
 
     if (
-      request.user?.role === "customer" && request.user.id !== delivery?.userId  // verificando se o pedido pertence ao usuário. 
+      request.user?.role === "customer" && request.user.id !== delivery?.userId  
     ) { 
       throw new AppError("the user can only view their deliveries", 401)
     }

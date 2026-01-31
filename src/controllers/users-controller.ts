@@ -1,14 +1,14 @@
-import { AppError } from '@/utils/AppError' // importação do AppError para validações.
+import { AppError } from '@/utils/AppError' 
 import { Request, Response } from 'express'
-import { prisma } from '@/database/prisma' // importação do prisma para conexão com o banco de dados.
-import { hash } from "bcrypt"         // importação do bcrypt para criptografia.
-import { z } from "zod"               // importação do zod para validações.
+import { prisma } from '@/database/prisma'
+import { hash } from "bcrypt"     
+import { z } from "zod"             
 
 class UsersController {
-  async create(request: Request, response: Response) {   // controller para retornar o conteúdo da requisição.
+  async create(request: Request, response: Response) {   
     const bodySchema = z.object({
       name: z.string().trim().min(2),
-      email: z.string().email(),                   // validação do que é necessário para cadastrar usuário.
+      email: z.string().email(),                 
       password: z.string().min(6),
     })
 
@@ -17,12 +17,12 @@ class UsersController {
     const userWithSameEmail = await prisma.user.findFirst({ where: { email } })
 
     if (userWithSameEmail) {
-      throw new AppError("User with same email already exists")     // validação de se o email cadastrado já existe.
+      throw new AppError("User with same email already exists")    
     }
 
-    const hashedPassword = await hash(password, 8)  // criptografia da senha.
+    const hashedPassword = await hash(password, 8)
 
-    const user = await prisma.user.create({        // metódo para criar um usuário.
+    const user = await prisma.user.create({       
       data: {
         name,
         email,                                    
@@ -30,7 +30,7 @@ class UsersController {
       },
     })
 
-    const { password: _, ...userWithoutPassword } = user // desestruturação da senha para que ela não retorne na requisição.
+    const { password: _, ...userWithoutPassword } = user
 
     return response.status(201).json(userWithoutPassword)
   }

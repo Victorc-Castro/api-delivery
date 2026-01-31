@@ -1,48 +1,48 @@
-import request from "supertest" // importação do "supertest" para fazer os testes.
-import { prisma } from "@/database/prisma"  // importação do prisma para conexão com o banco de dados.
+import request from "supertest" 
+import { prisma } from "@/database/prisma"  
 
-import { app } from "@/app"  // importação do onde estão as rotas.
+import { app } from "@/app" 
 
-describe("UsersController", () => {  // teste para criação de novos usuários.
-  let user_id: string  // variável para pegar o id do usuário criado.  
+describe("UsersController", () => {  
+  let user_id: string  
 
   afterAll(async () => {  
-    await prisma.user.delete({ where: { id: user_id } })  // método para deleter o usuário criado pelo teste após fazer o teste.
+    await prisma.user.delete({ where: { id: user_id } })  
   })
 
-  it("should create a new user sucessfully", async () => {   // teste de criação de um novo usuário.
+  it("should create a new user sucessfully", async () => {   
     const response = await request(app).post("/users").send({
       name: "Test User",
-      email: "testuser@email.com",                 // campos necessários para a criação de um usuário.
+      email: "testuser@email.com",               
       password: "password123",
     })
 
     expect(response.status).toBe(201)
-    expect(response.body).toHaveProperty("id")              // expectativa do que dever ser retornado ao fazer os testes.
+    expect(response.body).toHaveProperty("id")       
     expect(response.body.name).toBe("Test User")
 
-    user_id = response.body.id  // aqui pego o id do "user" criado e passo ele para a variável no começo do método.
+    user_id = response.body.id  
   })
 
-  it("should throw an error ir user with smae email already exists", async () => {  // teste de email já existente.
+  it("should throw an error ir user with smae email already exists", async () => { 
     const response = await request(app).post("/users").send({
       name: "Duplicate User",
-      email: "testuser@email.com",          // campos que serão criados para validar se determinado email já existe.   
+      email: "testuser@email.com",     
       password: "password123",
     })
 
-    expect(response.status).toBe(400)       // expectativa do que dever ser retornado ao fazer os testes.
+    expect(response.status).toBe(400)       
     expect(response.body.message).toBe("User with same email already exists")
   })
 
-  it("should throw a validation error if email is invalid", async () => {  // método para testar se o email é válido para cadastro.
+  it("should throw a validation error if email is invalid", async () => { 
     const response = await request(app).post("/users").send({ 
       name: "Test User",
-      email: "invalid-email",          // campos necessários para fazer o teste (campo e-mail é inválido para teste de exceção).
+      email: "invalid-email",        
       password: "password123"
     })
 
-    expect(response.status).toBe(400)                           // expectativa do que dever ser retornado ao fazer os testes.        
+    expect(response.status).toBe(400)                           
     expect(response.body.message).toBe("validation error")
   })
 })

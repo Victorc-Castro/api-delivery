@@ -1,44 +1,44 @@
 import { AppError } from '@/utils/AppError'
 import { Request, Response } from 'express'
-import { authConfig } from "@/configs/auth"  // importação da configuração da autenticação.
-import { prisma } from '@/database/prisma'  // importação do prisma para conexão com o banco de dados.
-import { sign } from 'jsonwebtoken'  // 
-import { compare } from 'bcrypt'          // importação do bcrypt para comparação da senhas.
-import { z } from "zod"    // importação do zod para validações.
+import { authConfig } from "@/configs/auth"  
+import { prisma } from '@/database/prisma' 
+import { sign } from 'jsonwebtoken'   
+import { compare } from 'bcrypt'       
+import { z } from "zod"    
 
 class SessionsController {
-  async create(request: Request, response: Response) {  // controller para retornar o conteúdo da requisição.
+  async create(request: Request, response: Response) {  
     const bodySchema = z.object({
-      email: z.string().email(),                    // validação do que é necessário para cadastrar usuário.
+      email: z.string().email(),                    
       password: z.string().min(6),
     })
     
     const { email, password } = bodySchema.parse(request.body)
 
     const user = await prisma.user.findFirst({
-      where: { email },                                 // recuperando o usuário com base no email.
+      where: { email },                           
     })
 
     if(!user) {
-      throw new AppError("Invalid email or password", 401)        // validação para caso não ache nenhum usuário.
+      throw new AppError("Invalid email or password", 401)       
     }
 
-    const passwordMatched = await compare(password, user.password)  // comparação de senhas com bcrypt.
+    const passwordMatched = await compare(password, user.password) 
 
     if(!passwordMatched) {
-      throw new AppError("Invalid email or password", 401)     // erro lançado caso as senhas não sejam compatíveis.
+      throw new AppError("Invalid email or password", 401)   
     }
 
-    const { secret, expiresIn } = authConfig.jwt  // desestruturando as configurações de autenticação.
+    const { secret, expiresIn } = authConfig.jwt  
 
-    const token = sign({ role: user.role ?? "customer" }, secret, {    // criando o token.
+    const token = sign({ role: user.role ?? "customer" }, secret, {    
       subject: user.id,
       expiresIn}
     )
 
-    const { password: hashedPassword, ...userWithoutPassword } = user  // removendo a senha para fazer o retorno.
+    const { password: hashedPassword, ...userWithoutPassword } = user  
 
-    return response.json({ token, user: userWithoutPassword }) // retorno do usuário.
+    return response.json({ token, user: userWithoutPassword }) 
   }
 }
 

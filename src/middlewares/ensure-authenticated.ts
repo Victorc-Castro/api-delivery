@@ -3,7 +3,7 @@ import { authConfig } from "@/configs/auth"
 import { AppError } from "@/utils/AppError"
 import { verify } from "jsonwebtoken"
 
-interface TokenPayload {     // definindo o tipo de objeto.
+interface TokenPayload {    
   role: string
   sub: string
 }
@@ -17,14 +17,14 @@ function ensureAuthenticated(
     const authHeader = request.headers.authorization  
 
     if(!authHeader) {                                 
-      throw new AppError("JWT token not found", 401)   // verificação de se há conteúdo.
+      throw new AppError("JWT token not found", 401)   
     }
 
     const [, token] = authHeader.split(" ") 
 
-    const { role, sub: user_id } = verify(token, authConfig.jwt.secret) as TokenPayload  // recuperando o token.
+    const { role, sub: user_id } = verify(token, authConfig.jwt.secret) as TokenPayload  
 
-    request.user = {  // adicionando o user dentro da requisição.
+    request.user = { 
       id: user_id,
       role,
     }

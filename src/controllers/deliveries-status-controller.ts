@@ -1,15 +1,15 @@
 import { Request, Response } from 'express'
-import { prisma } from '@/database/prisma'  // importação do banco de dados.
-import { z } from "zod"  // zod para as validações.
+import { prisma } from '@/database/prisma'  
+import { z } from "zod"  
 
 class DeliveriesStatusController {
-  async update(request: Request, reponse: Response) {  // método para atualizar os status.
+  async update(request: Request, reponse: Response) {  
     const paramsSchema = z.object({
-      id: z.string().uuid(),                     // validações dos parâmetros.
+      id: z.string().uuid(),                    
     })
 
     const bodySchema = z.object({
-      status: z.enum(["processing", "shipped", "delivered"]),   // validação do corpo da requisição.
+      status: z.enum(["processing", "shipped", "delivered"]), 
     })
 
     const { id } = paramsSchema.parse(request.params)
@@ -19,12 +19,12 @@ class DeliveriesStatusController {
       data: {
         status,
       },
-      where: {                             // usando o prisma para dizer o que queremos atualizar.
+      where: {                            
         id,
       },
     })
 
-    await prisma.deliveryLog.create({        // criando um log quando o status do pedido mudar.
+    await prisma.deliveryLog.create({       
       data: {
         deliveryId: id,
         description: status,
