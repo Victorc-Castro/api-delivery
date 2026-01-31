@@ -57,6 +57,10 @@ API-DELIVERY
 
 ├── .gitignore
 
+├── README.md
+
+├── README.pt-BR.md
+
 ├── docker-compose.yml       # PostgreSQL configuration with Docker
 
 ├── jest.config.js           # Jest configuration
@@ -64,8 +68,6 @@ API-DELIVERY
 ├── package-lock.json
 
 ├── package.json
-
-├── README.md
 
 ├── request_insomnia.yaml    # API request collection for testing
 

@@ -56,6 +56,11 @@ API-DELIVERY
 ├── .env-example             # Exemplo de variáveis de ambiente
 
 ├── .gitignore
+
+├── README.md
+
+├── README.pt-BR.md
+
 ├── docker-compose.yml       # Configuração do PostgreSQL com Docker
 
 ├── jest.config.js           # Configuração do Jest
@@ -63,8 +68,6 @@ API-DELIVERY
 ├── package-lock.json
 
 ├── package.json
-
-├── README.md
 
 ├── request_insomnia.yaml    # Coleção de requisições para teste da API
 
