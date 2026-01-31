@@ -1,14 +1,16 @@
 ## 📦 Delivery API
 
-Esta API foi desenvolvida para gerenciar o fluxo de entregas de pedidos, permitindo o controle de usuários com diferentes perfis (roles), pedidos, status de delivery e o histórico de movimentações de cada pedido.
+[🇧🇷 Leia esta documentação em Português](./README.pt-BR.md)
 
-A aplicação trabalha com dois perfis principais:
+This API was built to manage the delivery flow of orders, providing full control over users with different roles, orders, delivery statuses, and the movement history of each order.
 
-Vendedor: responsável por criar e enviar pedidos para os clientes.
+The application works with two main user roles:
 
-Cliente: que pode visualizar e acompanhar seus pedidos.
+Seller: responsible for creating and sending orders to customers.
 
-Cada pedido pertence a um usuário e possui um status de entrega, como:
+Customer: can view and track their own orders.
+
+Each order belongs to a user and has a delivery status, such as:
 
 processing
 
@@ -16,47 +18,48 @@ shipped
 
 delivered
 
-Além disso, a API registra as movimentações do pedido (ex: produto saiu para entrega), garantindo rastreabilidade completa do processo.
+In addition, the API records every order movement (e.g., order left for delivery), ensuring full traceability throughout the delivery process.
 
-## 👩‍💻 Aprendizados
+## 👩‍💻 What I Learned
 
-Durante o desenvolvimento do Delivery API, foram aplicados diversos conceitos fundamentais para APIs modernas e escaláveis. Entre os principais aprendizados estão:
+During the development of the Delivery API, several core concepts for building modern and scalable APIs were applied. The main learnings include:
 
---> 1. Controle de Acesso com User Roles
-Implementação de perfis de usuário (vendedor e cliente), definindo permissões e acessos específicos para cada tipo de usuário dentro da aplicação.
+--> 1. Access Control with User Roles
+Implementation of user roles (seller and customer), defining specific permissions and access levels for each role within the application.
 
---> 2. Validação de Dados com Zod
-Criação de schemas para validação de entradas, garantindo consistência, segurança e confiabilidade dos dados trafegados pela API.
+--> 2. Data Validation with Zod
+Creation of validation schemas to ensure data consistency, security, and reliability across all API inputs.
 
---> 3. Modelagem de Dados com Prisma ORM
-Definição de modelos relacionais utilizando PostgreSQL, incluindo relacionamentos entre usuários, pedidos e movimentações de delivery.
+--> 3. Data Modeling with Prisma ORM
+Design of relational data models using PostgreSQL, including relationships between users, orders, and delivery movements.
 
---> 4. Gerenciamento de Status e Fluxo de Entregas
-Implementação do ciclo de vida de um pedido, desde a criação até a entrega final, com controle de estados e histórico de eventos.
+--> 4. Delivery Status and Workflow Management
+Implementation of the order lifecycle, from creation to final delivery, with strict state control and event history tracking.
 
---> 5. Testes Automatizados com Jest
-Criação de testes automatizados para validação das regras de negócio, aumentando a confiabilidade e facilitando a manutenção da aplicação.
+--> 5. Automated Testing with Jest
+Development of automated tests to validate business rules, increasing reliability and simplifying long-term maintenance.
 
---> 6. Ambiente Containerizado com Docker
-Configuração do banco de dados com Docker Compose, facilitando a padronização do ambiente de desenvolvimento.
+--> 6. Containerized Environment with Docker
+Database setup using Docker Compose, ensuring a standardized and reproducible development environment.
 
-## 💻 Estrutura do Projeto
+## 💻 Project Structure
 API-DELIVERY
 
-├── node_modules/            # Dependências (ignorado pelo Git) 
+├── node_modules/            # Dependencies (ignored by Git)
 
-├── prisma/                  # Schema, migrations e client do Prisma
+├── prisma/                  # Prisma schema, migrations, and client
 
-├── src/                     # Código fonte do backend
+├── src/                     # Backend source code
 
-├── .env                     # Variáveis de ambiente (ignorado pelo Git)
+├── .env                     # Environment variables (ignored by Git)
 
-├── .env-example             # Exemplo de variáveis de ambiente
+├── .env-example             # Environment variables example
 
 ├── .gitignore
-├── docker-compose.yml       # Configuração do PostgreSQL com Docker
 
-├── jest.config.js           # Configuração do Jest
+├── docker-compose.yml       # PostgreSQL configuration with Docker
+
+├── jest.config.js           # Jest configuration
 
 ├── package-lock.json
 
@@ -64,61 +67,61 @@ API-DELIVERY
 
 ├── README.md
 
-├── request_insomnia.yaml    # Coleção de requisições para teste da API
+├── request_insomnia.yaml    # API request collection for testing
 
-└── tsconfig.json            # Configurações do TypeScript
+└── tsconfig.json            # TypeScript configuration
 
-## 💾 Pré-requisitos
+## 💾 Prerequisites
 
 --> Node.js
 
---> npm ou yarn
+--> npm or yarn
 
---> Docker e Docker Compose
+--> Docker & Docker Compose
 
---> Insomnia ou Postman (para testar os endpoints)
+--> Insomnia or Postman (to test the endpoints)
 
-## 🚀 Como Rodar o Projeto
+## 🚀 Running the Project
 
---> Clone o repositório
+--> Clone the repository
 
---> Instale as dependências
+--> Install the dependencies
 
---> Suba o banco de dados com Docker
+--> Start the database using Docker
 
---> Execute as migrations do Prisma
+--> Run Prisma migrations
 
---> Inicie o servidor em modo desenvolvimento
+--> Start the server in development mode
 
-A API estará disponível na porta configurada do projeto.
+The API will be available on the configured application port.
 
-## 🧪 Testes Automatizados
+## 🧪 Automated Tests
 
-O projeto utiliza Jest para testes automatizados.
+This project uses Jest for automated testing.
 
---> Executar testes em modo watch de acordo com os scripts configurados.
+--> Run tests in watch mode using the configured npm scripts.
 
-## 🛠️ Testes da API com Insomnia
+## 🛠️ API Testing with Insomnia
 
---> Localize o arquivo request_insomnia.yaml
+--> Locate the request_insomnia.yaml file
 
---> Importe no Insomnia
+--> Import it into Insomnia
 
---> Todas as requisições estão configuradas para a URL local da API
+--> All requests are preconfigured for the local API URL
 
-Isso permite testar facilmente os fluxos de:
+This allows easy testing of flows such as:
 
-criação de usuários
+user creation
 
-autenticação
+authentication
 
-pedidos
+orders
 
-status de delivery
+delivery status updates
 
-movimentações
+delivery movements
 
-## ⚙️ Tecnologias Utilizadas
+## ⚙️ Technologies Used
 
 --> Node.js
 
