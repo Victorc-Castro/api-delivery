@@ -10,7 +10,7 @@ describe("SessionsController", () => {
     await prisma.user.delete({ where: { id: user_id } })  
   })
 
-  it("should authenticate a and get acess token", async () => {     
+  it("should authenticate a and get access token", async () => {     
     const userResponse = await request(app).post("/users").send({
       name: "Auth Test User",
       email: "auth_test_user@email.com",                 

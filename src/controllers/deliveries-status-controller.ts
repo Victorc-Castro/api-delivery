@@ -3,7 +3,7 @@ import { prisma } from '@/database/prisma'
 import { z } from "zod"  
 
 class DeliveriesStatusController {
-  async update(request: Request, reponse: Response) {  
+  async update(request: Request, response: Response) {  
     const paramsSchema = z.object({
       id: z.string().uuid(),                    
     })
@@ -31,7 +31,7 @@ class DeliveriesStatusController {
       }
     })
 
-    return reponse.json()
+    return response.json()
   }
 }
 
