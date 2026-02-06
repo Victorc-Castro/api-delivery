@@ -113,15 +113,15 @@ This project uses Jest for automated testing.
 
 This allows easy testing of flows such as:
 
-user creation
+- user creation
 
-authentication
+- authentication
 
-orders
+- orders
 
-delivery status updates
+- delivery status updates
 
-delivery movements
+- delivery movements
 
 ## ⚙️ Technologies Used
 
